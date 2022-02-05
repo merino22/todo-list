@@ -15,7 +15,7 @@ function App() {
         <AddTodo></AddTodo>
         <ListGroup className='container todoListWrapper'>
           {todoList.map((todo) =>
-            <ListGroupItem className='todoItemWrapper'>
+            <ListGroupItem className='todoItemWrapper' key={todo}>
               <div className='row'>
                 <div className='col-md-6'>{todo}</div>
                 <div className='col-md-6'><FormCheck type='checkbox'></FormCheck></div>
