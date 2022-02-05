@@ -1,5 +1,5 @@
 module.exports = app => {
-    const Todos = require("../controllers/todo.controller.js");
+    const todos = require("../controllers/todo.controller.js");
 
     var router = require("express").Router();
 
@@ -7,11 +7,11 @@ module.exports = app => {
 
     router.get("/", todos.findAll);
 
-    router.delete("/:id", todos.findOne);
+    router.put("/:id", todos.update);
 
     router.delete("/", todos.deleteAll);
 
-    router.put("/:id", todos.update);
+    router.delete("/:id", todos.delete);
 
-    app.use('/api/tutorials', router);
+    app.use('/api/todos', router);
 };
