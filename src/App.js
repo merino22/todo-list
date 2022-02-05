@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FormCheck, ListGroup, ListGroupItem } from 'react-bootstrap';
+
+import AddTodo from './components/AddTodoForm';
 
 function App() {
+
+  const todoList = ['Clean Room', 'Wash Dishes', 'Study']
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <AddTodo></AddTodo>
+        <ListGroup className='container todoListWrapper'>
+          {todoList.map((todo) =>
+            <ListGroupItem className='todoItemWrapper'>
+              <div className='row'>
+                <div className='col-md-6'>{todo}</div>
+                <div className='col-md-6'><FormCheck type='checkbox'></FormCheck></div>
+              </div>
+            </ListGroupItem>
+          )}
+        </ListGroup>
+      </div>
     </div>
   );
 }
