@@ -6,25 +6,15 @@ import { FormCheck, ListGroup, ListGroupItem } from 'react-bootstrap';
 import AddTodo from './components/AddTodoForm.component';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function App() {
+import TodosList from './components/listTodos.component';
 
+function App() {
+  
   const todoList = ['Clean Room', 'Wash Dishes', 'Study']
 
   return (
     <div className="App">
-      <div>
-        <AddTodo></AddTodo>
-        <ListGroup className='container todoListWrapper'>
-          {todoList.map((todo) =>
-            <ListGroupItem className='todoItemWrapper' key={todo}>
-              <div className='row'>
-                <div className='col-md-6'>{todo}</div>
-                <div className='col-md-6'><FormCheck type='checkbox'></FormCheck></div>
-              </div>
-            </ListGroupItem>
-          )}
-        </ListGroup>
-      </div>
+      <TodosList></TodosList>
     </div>
   );
 }
