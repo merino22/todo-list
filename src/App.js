@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormCheck, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-import AddTodo from './components/AddTodoForm';
+import AddTodo from './components/AddTodoForm.component';
 
 function App() {
 
