@@ -4,17 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormCheck, ListGroup, ListGroupItem, Button} from 'react-bootstrap';
 
 import AddTodo from './components/AddTodoForm.component';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-import TodosList from './components/listTodos.component';
 import DeleteTodos from './components/DeleteTodos.component';
-import Todo from './components/UpdateTodos.component';
 
 import { Component, useState } from 'react';
 import todoService from './services/todo.service';
 
 import { FiDelete } from 'react-icons/fi';
-import { Prev } from 'react-bootstrap/esm/PageItem';
+
+import bgSVG from './assets/blurry-gradient-haikei.svg';
+import bgFooter from './assets/footer-bg.svg';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -113,10 +111,9 @@ export default class App extends Component {
     let isChecked = e.target.checked;
     let id = e.currentTarget.id;
 
-    //console.log(id);
     var tempArr = [...this.state.checkedTodos];
     var index = tempArr.indexOf(id);
-    //console.log("Index: " + index);
+
     if(isChecked){
       this.setState({
         todoChecked: true,
@@ -134,8 +131,6 @@ export default class App extends Component {
 
   updateTodoState() {
 
-    //console.log("Todo checked: " + this.state.todoChecked);
-
     var data = {
       id: this.state.currentTodo.id,
       title: this.state.currentTodo.title,
@@ -143,7 +138,6 @@ export default class App extends Component {
     }
 
     console.log(data);
-    //console.log(this.state.currentTodo);
     todoService.update(this.state.currentTodo.id, data)
       .then(response => {
         console.log(response.data);
@@ -175,10 +169,14 @@ export default class App extends Component {
       borderRadius: "50%"
     }
 
+    const footerDeleteBtn = {
+      margin: "10px 0 10px 0"
+    }
+
     return(
-        <div className='mainWrapper'>
-          <div className='todosWrapper'>
-          <div className="container d-flex align-items-center flex-column">
+        <div className='mainWrapper' style={{ backgroundImage: `url(${bgSVG})`, backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
+          <div className='todosWrapper' style={{ backgroundImage: `url(${bgFooter})`, backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
+          <div className="container d-flex align-items-center flex-column floatWrapper">
             <div className='p-4'>
               <div className='todoFormWrapper'>
                 <AddTodo onTodoAdd={this.retrieveTodos}></AddTodo>
@@ -186,7 +184,7 @@ export default class App extends Component {
             </div>
               
             <div>
-              <ListGroup>
+              <ListGroup className='todoListGroupWrapper'>
               {todos.map((todo, index) =>
                   <ListGroupItem className='todoItemWrapper' key={todo.id}>
                       <div className='row'>
@@ -208,7 +206,7 @@ export default class App extends Component {
 
             <div className='delete-button'>
               <DeleteTodos onTodosDeleted={this.retrieveTodos}></DeleteTodos>
-              <Button onClick={this.deleteCheckedTodos}>Delete Checked</Button>
+              <Button onClick={this.deleteCheckedTodos} style={footerDeleteBtn}>Delete Checked</Button>
             </div>
           </div>
         </div>

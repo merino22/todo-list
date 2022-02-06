@@ -11,6 +11,8 @@
   justify-content: center;
   justify-items: center;
   text-align: center;
+  height: 100vh;
+  background-color: black;
 }
 
 .wrap-text {
@@ -22,6 +24,10 @@
 .delete-button {
   position: absolute;
   bottom: 10vh;
+}
+
+.floatWrapper {
+  width: 100%;
 }
 
 .todos-list {
@@ -37,12 +43,16 @@
   border-color: grey;
   height: 90vh;
   display: inline-block;
+  background-color: bisque;
 }
 
-.todoListWrapper {
-  padding: 10vh 0 0 0;
-  align-items: center;
-  justify-content: center;
+.todoListGroupWrapper {
+  max-height: 319px;
+  overflow-y: scroll;
+}
+
+.todoListGroupWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .todoItemWrapper {

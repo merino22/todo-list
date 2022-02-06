@@ -48,7 +48,7 @@ function AddTodo(props) {
           {(
             <div className="d-flex align-items-center flex-column">
               <div className="form-group mb-auto p-3">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title" style={{color: "white"}}>Add New Todo</label>
                 <input
                   type="text"
                   className="form-control"
