@@ -139,7 +139,7 @@ export default class App extends Component {
                               {todo.title}
                             </div>
                           </div>
-                          <div className='col-sm-1 d-flex justify-content-end'><FormCheck type='switch' id={todo.id} onClick={this.getTodo} checked={todo.state} onChange={e => this.handleChange(e)}></FormCheck></div>
+                          <div className='col-sm-1 d-flex justify-content-end'><FormCheck type='switch' id={todo.id} onClick={this.getTodo} defaultChecked={todo.state} onChange={e => this.handleChange(e)}></FormCheck></div>
                       </div>
                   </ListGroupItem>
               )}
