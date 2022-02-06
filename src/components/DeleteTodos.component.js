@@ -21,7 +21,7 @@ function DeleteTodos(props) {
 
     return(
         <div className="d-flex align-items-center flex-column">
-            <Button onClick={deleteTodos}>Delete All</Button>
+            <Button onClick={deleteTodos} style={props.buttonStyle}>Delete All</Button>
         </div>
     )
 }

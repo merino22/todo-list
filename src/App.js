@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormCheck, ListGroup, ListGroupItem, Button} from 'react-bootstrap';
@@ -11,7 +10,7 @@ import todoService from './services/todo.service';
 
 import { FiDelete } from 'react-icons/fi';
 
-import bgSVG from './assets/blurry-gradient-haikei.svg';
+import blobSVG from './assets/blob-bg.svg';
 import bgFooter from './assets/footer-bg.svg';
 export default class App extends Component {
   constructor(props) {
@@ -66,7 +65,6 @@ export default class App extends Component {
 
   getTodo = (e) => {
     let id = e.currentTarget.id;
-    //console.log(id);
     todoService.get(id)
       .then(response => {
           this.setState({
@@ -170,11 +168,13 @@ export default class App extends Component {
     }
 
     const footerDeleteBtn = {
-      margin: "10px 0 10px 0"
+      margin: "10px 0 10px 0",
+      backgroundColor: "black",
+      borderWidth: 0
     }
 
     return(
-        <div className='mainWrapper' style={{ backgroundImage: `url(${bgSVG})`, backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
+        <div className='mainWrapper' style={{ backgroundImage: `url(${blobSVG})`, backgroundSize: "cover"}}>
           <div className='todosWrapper' style={{ backgroundImage: `url(${bgFooter})`, backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
           <div className="container d-flex align-items-center flex-column floatWrapper">
             <div className='p-4'>
@@ -185,7 +185,7 @@ export default class App extends Component {
               
             <div>
               <ListGroup className='todoListGroupWrapper'>
-              {todos.map((todo, index) =>
+              {todos.map((todo) =>
                   <ListGroupItem className='todoItemWrapper' key={todo.id}>
                       <div className='row'>
                           <div className='col-sm-11'>
@@ -205,7 +205,7 @@ export default class App extends Component {
             </div>
 
             <div className='delete-button'>
-              <DeleteTodos onTodosDeleted={this.retrieveTodos}></DeleteTodos>
+              <DeleteTodos onTodosDeleted={this.retrieveTodos} buttonStyle={footerDeleteBtn}></DeleteTodos>
               <Button onClick={this.deleteCheckedTodos} style={footerDeleteBtn}>Delete Checked</Button>
             </div>
           </div>
