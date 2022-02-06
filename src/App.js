@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import TodosList from './components/listTodos.component';
 import DeleteTodos from './components/DeleteTodos.component';
+import Todo from './components/UpdateTodos.component';
 
 import { Component, useState } from 'react';
 import todoService from './services/todo.service';
@@ -16,9 +17,18 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.retrieveTodos = this.retrieveTodos.bind(this);
+    this.getTodo = this.getTodo.bind(this);
+
+    const initialTodoState = {
+      id: null,
+      title: "",
+      state: null
+    }
 
     this.state = {
-      todos: []
+      todos: [],
+      currentTodo: initialTodoState,
+      todoChecked: null
     }
   }
 
@@ -39,6 +49,57 @@ export default class App extends Component {
           })
   }
 
+  getTodo = (e) => {
+    let id = e.target.id;
+    console.log(id);
+    todoService.get(id)
+      .then(response => {
+          this.setState({
+            currentTodo: response.data
+          })
+          console.log(this.state.currentTodo);
+          this.updateTodoState();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
+
+  handleChange(e) {
+    let isChecked = e.target.checked;
+
+    if(isChecked)
+      this.setState({
+        todoChecked: true
+      })
+    else
+    this.setState({
+      todoChecked: false
+    })
+  }
+
+  updateTodoState() {
+
+    //console.log("Todo checked: " + this.state.todoChecked);
+
+    var data = {
+      id: this.state.currentTodo.id,
+      title: this.state.currentTodo.title,
+      state: this.state.todoChecked,
+    }
+
+    console.log(data);
+    //console.log(this.state.currentTodo);
+    todoService.update(this.state.currentTodo.id, data)
+      .then(response => {
+        console.log(response.data);
+        console.log("Todo was updated successfully.");
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
+
   deleteTodos() {
     todoService.deleteAll()
       .then(response => {
@@ -53,6 +114,7 @@ export default class App extends Component {
 
   render() {
     const { todos } = this.state;
+    const { currentTodo } = this.state;
 
     return(
         <div className='mainWrapper'>
@@ -69,8 +131,12 @@ export default class App extends Component {
               {todos.map((todo, index) =>
                   <ListGroupItem className='todoItemWrapper' key={todo.id}>
                       <div className='row'>
-                          <div className='col-md-6'>{todo.title}</div>
-                          <div className='col-md-6 d-flex justify-content-end'><FormCheck type='checkbox'></FormCheck></div>
+                          <div className='col-sm-11'>
+                            <div className='wrap-text'>
+                              {todo.title}
+                            </div>
+                          </div>
+                          <div className='col-sm-1 d-flex justify-content-end'><FormCheck type='switch' id={todo.id} onClick={this.getTodo} onChange={e => this.handleChange(e)}></FormCheck></div>
                       </div>
                   </ListGroupItem>
               )}
@@ -79,7 +145,7 @@ export default class App extends Component {
 
             <div className='p-4'>
               <DeleteTodos onTodosDeleted={this.retrieveTodos}></DeleteTodos>
-            </div> 
+            </div>
           </div>
         </div>
         </div>

@@ -8,7 +8,15 @@
 }
 
 .mainWrapper {
-  margin: 0 auto;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.wrap-text {
+  text-align: left;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 
 .todosWrapper {
@@ -19,6 +27,7 @@
   border-radius: 1em;
   border-color: grey;
   height: 90vh;
+  display: inline-block;
 }
 
 .todoListWrapper {

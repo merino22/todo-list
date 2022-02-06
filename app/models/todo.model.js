@@ -9,7 +9,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         state: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
         }
     });
 

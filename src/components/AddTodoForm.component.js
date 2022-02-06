@@ -34,7 +34,6 @@ function AddTodo(props) {
                 setTodo({
                     id: response.data.id,
                     title: response.data.title,
-                    state: response.data.state
                 });
                 setSubmitted(true);
                 console.log(response.data);
