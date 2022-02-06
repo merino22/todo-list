@@ -19,6 +19,15 @@
   overflow-wrap: break-word;
 }
 
+.delete-button {
+  position: absolute;
+  bottom: 10vh;
+}
+
+.todos-list {
+  margin: 50vh 0 5vh 0;
+}
+
 .todosWrapper {
   margin-top: 5vh;
   max-width: 55vw;

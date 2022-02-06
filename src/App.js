@@ -36,6 +36,10 @@ export default class App extends Component {
     this.retrieveTodos();
   }
 
+  setCheck() {
+    return true;
+  }
+
   retrieveTodos() {
       todoService.getAll()
           .then(response => {
@@ -115,7 +119,6 @@ export default class App extends Component {
   render() {
     const { todos } = this.state;
     const { currentTodo } = this.state;
-
     return(
         <div className='mainWrapper'>
           <div className='todosWrapper'>
@@ -126,7 +129,7 @@ export default class App extends Component {
               </div>
             </div>
               
-            <div className='p-4'>
+            <div>
               <ListGroup>
               {todos.map((todo, index) =>
                   <ListGroupItem className='todoItemWrapper' key={todo.id}>
@@ -136,14 +139,14 @@ export default class App extends Component {
                               {todo.title}
                             </div>
                           </div>
-                          <div className='col-sm-1 d-flex justify-content-end'><FormCheck type='switch' id={todo.id} onClick={this.getTodo} onChange={e => this.handleChange(e)}></FormCheck></div>
+                          <div className='col-sm-1 d-flex justify-content-end'><FormCheck type='switch' id={todo.id} onClick={this.getTodo} checked={todo.state} onChange={e => this.handleChange(e)}></FormCheck></div>
                       </div>
                   </ListGroupItem>
               )}
               </ListGroup>
             </div>
 
-            <div className='p-4'>
+            <div className='delete-button'>
               <DeleteTodos onTodosDeleted={this.retrieveTodos}></DeleteTodos>
             </div>
           </div>
