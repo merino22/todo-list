@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import todoService from "../services/todo.service";
 import TodosList from "./listTodos.component";
 
@@ -46,11 +45,10 @@ function AddTodo(props) {
             });
     };
     return (
-      <div>
         <div className="submit-form">
           {(
-            <div>
-              <div className="form-group">
+            <div className="d-flex align-items-center flex-column">
+              <div className="form-group mb-auto p-3">
                 <label htmlFor="title">Title</label>
                 <input
                   type="text"
@@ -60,6 +58,7 @@ function AddTodo(props) {
                   value={todo.title}
                   onChange={handleInputChange}
                   name="title"
+                  style={{width: "50vw"}}
                 />
               </div>
               <button onClick={saveTodo} className="btn btn-success">
@@ -68,19 +67,6 @@ function AddTodo(props) {
             </div>
           )}
         </div>
-        <div className="container">
-                <ListGroup>
-                {todos.map((todo, index) =>
-                    <ListGroupItem className='todoItemWrapper' key={todo.id}>
-                        <div className='row'>
-                            <div className='col-md-6'>{todo.title}</div>
-                            <div className='col-md-6'><FormCheck type='checkbox'></FormCheck></div>
-                        </div>
-                    </ListGroupItem>
-                )}
-                </ListGroup>
-            </div>
-      </div>
       );
 }
 
