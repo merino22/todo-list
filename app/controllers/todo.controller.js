@@ -88,7 +88,7 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     Todo.destroy({
-        where: { id: id}
+        where: { id: id }
     })
         .then(num => {
             if(num == 1) {

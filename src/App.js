@@ -13,6 +13,7 @@ import Todo from './components/UpdateTodos.component';
 import { Component, useState } from 'react';
 import todoService from './services/todo.service';
 
+import { FiDelete } from 'react-icons/fi';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -54,7 +55,7 @@ export default class App extends Component {
   }
 
   getTodo = (e) => {
-    let id = e.target.id;
+    let id = e.currentTarget.id;
     console.log(id);
     todoService.get(id)
       .then(response => {
@@ -63,6 +64,19 @@ export default class App extends Component {
           })
           console.log(this.state.currentTodo);
           this.updateTodoState();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
+
+  deleteTodo = (e) => {
+    let id = e.currentTarget.id;
+    console.log(id);
+    todoService.delete(id)
+      .then(response => {
+        console.log(response.data)
+        this.retrieveTodos();
       })
       .catch(e => {
         console.log(e);
@@ -119,6 +133,12 @@ export default class App extends Component {
   render() {
     const { todos } = this.state;
     const { currentTodo } = this.state;
+
+    const deleteSingleTodoBtn = {
+      margin: "0 0 5px 10px",
+      borderRadius: "50%"
+    }
+
     return(
         <div className='mainWrapper'>
           <div className='todosWrapper'>
@@ -139,7 +159,11 @@ export default class App extends Component {
                               {todo.title}
                             </div>
                           </div>
-                          <div className='col-sm-1 d-flex justify-content-end'><FormCheck type='switch' id={todo.id} onClick={this.getTodo} defaultChecked={todo.state} onChange={e => this.handleChange(e)}></FormCheck></div>
+                          <div className='col-sm-1 d-flex justify-content-end'>
+                            <FormCheck type='switch' id={todo.id} onClick={this.getTodo} defaultChecked={todo.state} onChange={e => this.handleChange(e)}></FormCheck>
+                            {/* <div style={{margin: "0 0 5px 10px"}}><a href='#'><TiDelete/></a></div> */}
+                            <Button className='btn btn-danger btn-sm' id={todo.id} style={deleteSingleTodoBtn} onClick={this.deleteTodo}><FiDelete style={{marginBottom: "3px"}} /></Button>
+                            </div>
                       </div>
                   </ListGroupItem>
               )}
@@ -155,19 +179,3 @@ export default class App extends Component {
     )
   }
 }
-
-// function App() {
-
-//   const [todosData, setTodosData] = useState({todos: []});
-
-//   return (
-//     <div className="App">
-//       <AddTodo onTodoAdd={setTodosData}></AddTodo>
-//       {console.log(todosData)}
-//       <TodosList todosData={todosData.todos}></TodosList>
-//       <Button>Delete All</Button>
-//     </div>
-//   );
-// }
-
-// export default App;
