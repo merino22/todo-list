@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import todoService from "../services/todo.service";
+import TodosList from "./listTodos.component";
 
-const AddTodo = () => {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FormCheck, ListGroup, ListGroupItem } from 'react-bootstrap';
+
+function AddTodo(props) {
     
     const initialTodoState = {
         name: "",
@@ -12,6 +16,8 @@ const AddTodo = () => {
     const [todo, setTodo] = useState(initialTodoState);
     const [submitted, setSubmitted] = useState(false);
     const [name, setName] = useState("");
+
+    const [todos, setTodos] = useState([]);
 
     const handleInputChange = event => {
         const { name, value } = event.target
@@ -33,37 +39,16 @@ const AddTodo = () => {
                 });
                 setSubmitted(true);
                 console.log(response.data);
+                props.onTodoAdd();
             })
             .catch(e => {
                 console.log(e);
             });
     };
-
-    const newTodo = () => {
-        setTodo(initialTodoState);
-        setSubmitted(false);
-    }
-    
-    const handleSubmit = e => {
-        e.preventDefault();
-
-        if(!name)
-            return;
-        
-        //createTodo(name);
-        setName("");
-    }
-
     return (
+      <div>
         <div className="submit-form">
-          {submitted ? (
-            <div>
-              <h4>You submitted successfully!</h4>
-              <button className="btn btn-success" onClick={newTodo}>
-                Add
-              </button>
-            </div>
-          ) : (
+          {(
             <div>
               <div className="form-group">
                 <label htmlFor="title">Title</label>
@@ -83,6 +68,19 @@ const AddTodo = () => {
             </div>
           )}
         </div>
+        <div className="container">
+                <ListGroup>
+                {todos.map((todo, index) =>
+                    <ListGroupItem className='todoItemWrapper' key={todo.id}>
+                        <div className='row'>
+                            <div className='col-md-6'>{todo.title}</div>
+                            <div className='col-md-6'><FormCheck type='checkbox'></FormCheck></div>
+                        </div>
+                    </ListGroupItem>
+                )}
+                </ListGroup>
+            </div>
+      </div>
       );
 }
 
