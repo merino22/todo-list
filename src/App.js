@@ -97,6 +97,16 @@ export default class App extends Component {
 
   deleteCheckedTodos() {
     console.log(this.state.checkedTodos);
+    this.state.checkedTodos.map((todo) => {
+      todoService.delete(todo)
+        .then(response =>{
+          console.log(response);
+          this.retrieveTodos();
+        })
+        .catch(e => {
+          console.log(e);
+        })
+    })
   }
 
   handleChange(e) {
