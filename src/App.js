@@ -14,11 +14,14 @@ import { Component, useState } from 'react';
 import todoService from './services/todo.service';
 
 import { FiDelete } from 'react-icons/fi';
+import { Prev } from 'react-bootstrap/esm/PageItem';
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.retrieveTodos = this.retrieveTodos.bind(this);
     this.getTodo = this.getTodo.bind(this);
+    this.deleteCheckedTodos = this.deleteCheckedTodos.bind(this);
+    this.setCheckedTodos = this.setCheckedTodos.bind(this);
 
     const initialTodoState = {
       id: null,
@@ -29,6 +32,7 @@ export default class App extends Component {
     this.state = {
       todos: [],
       currentTodo: initialTodoState,
+      checkedTodos: [],
       todoChecked: null
     }
   }
@@ -37,8 +41,15 @@ export default class App extends Component {
     this.retrieveTodos();
   }
 
-  setCheck() {
-    return true;
+  setCheckedTodos() {
+    this.state.todos.map((todo) => {
+      if(todo.state == true){
+        this.setState({
+          checkedTodos: [...this.state.checkedTodos, todo.id]
+        })
+      }
+    })
+    console.log(this.state.checkedTodos);
   }
 
   retrieveTodos() {
@@ -48,6 +59,7 @@ export default class App extends Component {
                   todos: response.data
               });
               console.log(response.data);
+              this.setCheckedTodos();
           })
           .catch(e => {
               console.log(e);
@@ -56,7 +68,7 @@ export default class App extends Component {
 
   getTodo = (e) => {
     let id = e.currentTarget.id;
-    console.log(id);
+    //console.log(id);
     todoService.get(id)
       .then(response => {
           this.setState({
@@ -83,17 +95,31 @@ export default class App extends Component {
       })
   }
 
+  deleteCheckedTodos() {
+    console.log(this.state.checkedTodos);
+  }
+
   handleChange(e) {
     let isChecked = e.target.checked;
+    let id = e.currentTarget.id;
 
-    if(isChecked)
+    //console.log(id);
+    var tempArr = [...this.state.checkedTodos];
+    var index = tempArr.indexOf(id);
+    //console.log("Index: " + index);
+    if(isChecked){
       this.setState({
-        todoChecked: true
+        todoChecked: true,
+        checkedTodos: [...this.state.checkedTodos, id]
       })
-    else
-    this.setState({
-      todoChecked: false
-    })
+    } else{
+      tempArr.splice(index, 1);
+      this.setState({
+        todoChecked: false,
+        checkedTodos: tempArr
+      })
+    }
+    console.log(this.state.checkedTodos);
   }
 
   updateTodoState() {
@@ -172,6 +198,7 @@ export default class App extends Component {
 
             <div className='delete-button'>
               <DeleteTodos onTodosDeleted={this.retrieveTodos}></DeleteTodos>
+              <Button onClick={this.deleteCheckedTodos}>Delete Checked</Button>
             </div>
           </div>
         </div>
