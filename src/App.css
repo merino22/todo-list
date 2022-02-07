@@ -1,0 +1,102 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.mainWrapper {
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  height: 100vh;
+  background-color: black;
+}
+
+.wrap-text {
+  text-align: left;
+  inline-size: 100%;
+  overflow-wrap: break-word;
+}
+
+.delete-button {
+  position: absolute;
+  bottom: 10vh;
+}
+
+.floatWrapper {
+  width: 100%;
+}
+
+.todos-list {
+  margin: 50vh 0 5vh 0;
+}
+
+.todosWrapper {
+  margin-top: 5vh;
+  max-width: 55vw;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 1em;
+  border-color: grey;
+  height: 90vh;
+  display: inline-block;
+  background-color: bisque;
+}
+
+.todoListGroupWrapper {
+  max-height: 319px;
+  overflow-y: scroll;
+}
+
+.todoListGroupWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.todoItemWrapper {
+  display: flex;
+  width: 50vw;
+}
+
+.todoItemChild {
+  flex: 1;
+  margin: 10px;
+}
+
+.todoItemChildCheck {
+  flex: 1;
+  margin: 10px;
+  float: right;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
